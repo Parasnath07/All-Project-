@@ -12,7 +12,7 @@ class Hospital:
 
         # Initialize variables
         self.Nameoftablets = StringVar()
-        self.ReferenceNo = StringVar()
+        self.ref = StringVar()
         self.Dose = StringVar()
         self.NumberofTablets = StringVar()
         self.Lot = StringVar()
@@ -67,10 +67,10 @@ class Hospital:
         comNameTablet.current(0)
         comNameTablet.grid(row=0, column=1)
 
-        lblReferenceNo = Label(DataFrameLeft, font=("arial", 12, "bold"), text="ReferenceNo:", padx=2)
-        lblReferenceNo.grid(row=1, column=0, sticky=W)
-        txtReferenceNo = Entry(DataFrameLeft, font=("arial", 13, "bold"), textvariable=self.ReferenceNo, width=35)
-        txtReferenceNo.grid(row=1, column=1)
+        lblref = Label(DataFrameLeft, font=("arial", 12, "bold"), text="Reference No:", padx=2)
+        lblref.grid(row=1, column=0, sticky=W)
+        txtref = Entry(DataFrameLeft, font=("arial", 13, "bold"), textvariable=self.ref, width=35)
+        txtref.grid(row=1, column=1)
 
         lblDose = Label(DataFrameLeft, font=("arial", 12, "bold"), text="Dose:", padx=2, pady=4)
         lblDose.grid(row=2, column=0, sticky=W)
@@ -154,6 +154,7 @@ class Hospital:
         txtPatientAddress =Entry(DataFrameLeft, font=("arial", 12, "bold"),textvariable=self.PatientAddress, width=35)
         txtPatientAddress.grid(row=8,column=3)
 
+        # Adding all other entry widgets with similar patterns...
         # --------------------------------- Buttons --------------------------------
 
         btnPrescription = Button(Buttonframe, text="Prescription", bg="green", fg="white", font=("arial", 12, "bold"),
@@ -163,21 +164,25 @@ class Hospital:
                              width=23,command=self.iPrescriptionData)
         btnPrescriptionData.grid(row=0, column=1)
         
+        # Add other buttons similarly...
+        # Prescription Button
 
+# Update Button
         btnUpdate = Button(Buttonframe, text="Update", bg="green", fg="white", font=("arial", 12, "bold"),
                            width=23, command=self.iPrescriptionData)
         btnUpdate.grid(row=0, column=2)
         
-
+# Delete Button
         btnDelete = Button(Buttonframe, text="Delete", bg="green", fg="white", font=("arial", 12, "bold"),
                           width=23,command=self.iPrescriptionData)
         btnDelete.grid(row=0, column=3)
         
- 
+        # Clear Button
         btnClear = Button(Buttonframe, text="Clear", bg="green", fg="white", font=("arial", 12, "bold"),
                           width=23,command=self.iPrescriptionData)
         btnClear.grid(row=0, column=4)
-    
+        
+        # Exit Button
         btnExit = Button(Buttonframe, text="Exit", bg="green", fg="white", font=("arial", 12, "bold"),
                          width=23,command=self.iPrescriptionData)
         btnExit.grid(row=0, column=5)
@@ -221,10 +226,10 @@ class Hospital:
                 conn = mysql.connector.connect(host="127.0.0.1", username="root", password="Paras@12345", database="bank_db")
                 my_cursor = conn.cursor()
                 my_cursor.execute("INSERT INTO HOSPITAL VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                                  (self.Nameoftablets.get(), self.ReferenceNo.get(), self.Dose.get(), self.Nooftablets.get(),
-                                   self.Lot.get(), self.Isseudate.get(), self.Expdate.get(), self.DailyDose.get(),
+                                  (self.Nameoftablets.get(), self.ref.get(), self.Dose.get(), self.NumberofTablets.get(),
+                                   self.Lot.get(), self.Issuedate.get(), self.ExpDate.get(), self.DailyDose.get(),
                                    self.Storage.get(), self.Nhsnumber.get(), self.PatientName.get(),
-                                   self.DOB.get(), self.PatientAddress.get()))
+                                   self.DateOfBirth.get(), self.PatientAddress.get()))
                 conn.commit()
                 conn.close()
                 messagebox.showinfo("Success", "Record has been inserted successfully")
